@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portal Proveedor</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:40px;
+    font-family:Segoe UI, Arial, sans-serif;
+    background:linear-gradient(135deg,#1d0833,#34125f,#140622);
+    color:white;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.back-btn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#6d28d9;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.card{
+    background:white;
+    color:#333;
+    margin-top:30px;
+    padding:30px;
+    border-radius:20px;
+}
+
+.card h2{
+    margin-top:0;
+}
+
+ul{
+    line-height:2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <button
+        class="back-btn"
+        onclick="window.open('portal_abastecimiento.html','_self')">
+        ↩
+    </button>
+
+    <h1>Portal Proveedor</h1>
+
+</div>
+
+<div class="card">
+
+    <h2>Bienvenido</h2>
+
+    <p>Opciones futuras para proveedores:</p>
+
+    <ul>
+        <li>Consultar órdenes de compra</li>
+        <li>Consultar entregas</li>
+        <li>Ver estado de facturas</li>
+        <li>Descargar documentos</li>
+        <li>Contactar Compras</li>
+    </ul>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Nacional de Abastecimiento - Procurement & Supply Operations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background:
+radial-gradient(circle at top right,
+rgba(139,92,246,.35) 0%,
+transparent 25%),
+
+radial-gradient(circle at bottom left,
+rgba(99,102,241,.25) 0%,
+transparent 30%),
+
+linear-gradient(
+135deg,
+#140622 0%,
+#2e1065 50%,
+#10031b 100%);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Top decorative floating banner */
+    .top-banner {
+      width: 100%;
+      height: 90px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .circle-item {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.85;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease;
+    }
+
+    .circle-item img {
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.25;
+    filter: blur(0.5px);
+}
+
+    .circle-item:hover {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 12px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #d1b3ff;
+      font-weight: 500;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #c4b5fd;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Section Layout */
+    .main-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 90%;
+      display: flex;
+      gap: 30px;
+      align-items: stretch;
+      justify-content: center;
+      padding: 20px 0 40px 0;
+      flex-grow: 1;
+    }
+
+    .cards-wrapper {
+      display: flex;
+      gap: 25px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    /* Interactive Cards */
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 40px 30px;
+      flex: 1;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: #1e1b4b;
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.35);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      border: 2px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.45);
+    }
+
+    .card.active {
+      border-color: #7c3aed;
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      background: #f3e8ff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      color: #6d28d9;
+    }
+
+    .card-icon svg {
+      width: 36px;
+      height: 36px;
+      fill: currentColor;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      color: #111827;
+    }
+
+    .card-text {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      flex-grow: 1;
+    }
+
+    .card-btn {
+      width: 100%;
+      padding: 12px 20px;
+      background: #2e1065;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .card-btn:hover {
+      background: #4c1d95;
+    }
+
+    /* Modal / Auth Panel Side-by-Side */
+    .auth-panel {
+      width: 360px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 35px 30px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .auth-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .auth-header p {
+      font-size: 13px;
+      color: #ddd6fe;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e9d5ff;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.9);
+      color: #1f2937;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      background: #ffffff;
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+      transform: translateY(-1px);
+    }
+
+    .auth-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .auth-footer a {
+      color: #c4b5fd;
+      text-decoration: none;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.15);
+      font-size: 13px;
+      color: #a7f3d0;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      color: #9ca3af;
+    }
+
+    .footer-links a {
+      color: #d1d5db;
+      text-decoration: none;
+    }
+.background-grid{
+    position:fixed;
+    inset:0;
+
+    background-image:
+    linear-gradient(
+        rgba(255,255,255,.03) 1px,
+        transparent 1px),
+
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.03) 1px,
+        transparent 1px);
+
+    background-size:40px 40px;
+
+    pointer-events:none;
+
+    z-index:0;
+}
+  </style>
+</head>
+<body>
+<div class="background-grid"></div>
+  <!-- Top Floating Beer Banner -->
+  
+  <!-- Header Section -->
+  <header class="header">
+    <div class="logo">
+      TaDa
+      <span></span>
+    </div>
+    <h1 class="title">Portal Nacional de Abastecimiento</h1>
+    <p class="subtitle">Procurement & Supply Operations</p>
+  </header>
+
+  <!-- Main Grid Container -->
+  <main class="main-container">
+    <div class="cards-wrapper">
+      
+      <!-- Card 1: Proveedor -->
+      <div class="card active" onclick="selectRole('proveedor')">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        </div>
+        <h2 class="card-title">PROVEEDOR</h2>
+        <p class="card-text">Consulta órdenes de compra, entregas y documentación.</p>
+        <button class="card-btn">Ingresar</button>
+      </div>
+
+      <!-- Card 2: Compras -->
+      <div class="card" onclick="selectRole('compras')">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z"/></svg>
+        </div>
+        <h2 class="card-title">COMPRAS</h2>
+        <p class="card-text">Gestión comercial, otrosí, abastecimiento y seguimiento.</p>
+        <button class="card-btn">Acceder</button>
+      </div>
+
+      <!-- Card 3: Planeación -->
+      <div class="card" onclick="selectRole('planeacion')">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+        </div>
+        <h2 class="card-title">PLANEACIÓN</h2>
+        <p class="card-text">Necesidades, forecast, indicadores y planeación operativa.</p>
+        <button class="card-btn">Ver Panel</button>
+      </div>
+
+    </div>
+
+    <!-- Dynamic Side Authentication Panel -->
+    <div class="auth-panel" id="authPanel">
+      <div class="auth-header">
+        <h3 id="authTitle">Autenticación Proveedor</h3>
+        <p id="authSubtitle">Ingrese sus credenciales de acceso</p>
+      </div>
+      <form id="authForm">
+
+    <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input
+            type="email"
+            class="form-control"
+            placeholder="pvdr-9876@empresa.com"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label>Constraseña</label>
+        <input
+            type="password"
+            class="form-control"
+            placeholder="12345678"
+            required>
+    </div>
+<div style="
+margin-bottom:20px;
+display:flex;
+align-items:center;
+gap:8px;
+color:#ddd6fe;
+font-size:14px;">
+
+    <input
+        type="checkbox"
+        id="recordarme">
+
+    <label for="recordarme">
+        Recordarme
+    </label>
+
+</div>
+   <button
+type="button"
+class="btn-submit"
+onclick="ingresarPortal()">
+
+Iniciar Sesión
+
+</button>
+
+
+      <div class="auth-footer">
+        <a href="#">¿Olvidó su contraseña?</a> | <a href="#">Registrarse</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="status-indicator">
+      <span class="dot"></span>
+      <span>Operativo v1.0</span>
+    </div>
+    <div class="footer-links">
+      <span>&copy; 2026 Multinacional de Bebidas</span>
+      <a href="#">Legal</a>
+      <a href="#">Procurement</a>
+      <a href="#">Soporte</a>
+    </div>
+  </footer>
+
+  <script>
+    function selectRole(role) {
+window.perfilSeleccionado = 'proveedor';
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(c => c.classList.remove('active'));
+
+      const title = document.getElementById('authTitle');
+      const fields = document.getElementById('dynamicFields');
+
+      if(role === 'proveedor') {
+window.perfilSeleccionado = 'proveedor';
+        cards[0].classList.add('active');
+        title.innerText = 'Autenticación Proveedor';
+        fields.innerHTML = `
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" class="form-control" placeholder="pvdr-9876@empresa.com" required>
+          </div>
+          <div class="form-group">
+            <label>Código Proveedor</label>
+            <input type="password" class="form-control" placeholder="12345678" required>
+          </div>
+        `;
+      } else if(role === 'compras') {
+window.perfilSeleccionado = 'compras';
+localStorage.setItem("perfilPortal", role);
+        cards[1].classList.add('active');
+        title.innerText = 'Acceso Compras Corporativo';
+        fields.innerHTML = `
+          <div class="form-group">
+            <label>Usuario Corporativo</label>
+            <input type="text" class="form-control" placeholder="usr_compras@ambev.com" required>
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" placeholder="••••••••" required>
+          </div>
+        `;
+      } else if(role === 'planeacion') {
+window.perfilSeleccionado = 'planeacion';
+        cards[2].classList.add('active');
+        title.innerText = 'Acceso Planeación Operativa';
+        fields.innerHTML = `
+          <div class="form-group">
+            <label>Usuario Corporativo</label>G 	
+            <input type="text" class="form-control" placeholder="usr_planeacion@ambev.com" required>
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" placeholder="••••••••" required>
+          </div>
+        `;
+      }	
+    }
+function ingresarPortal(){
+
+    const correo =
+        document.querySelector('input[type="text"], input[type="email"]').value.toLowerCase();
+const recordar =
+document.getElementById("recordarme").checked;
+
+if(recordar){
+
+    localStorage.setItem(
+        "correoPortal",
+        correo
+    );
+
+}else{
+
+    localStorage.removeItem(
+        "correoPortal"
+    );
+
+}
+
+    const correosCompras = [
+    "jazmin.garciaC-ext@ab-inbev.com",
+    "karol.sanchez.c@ab-inbev.com",
+    "daily.ramirez-ext@ab-inbev.com"
+].map(x => x.toLowerCase());
+   
+    if(window.perfilSeleccionado === 'compras'){
+
+        if(correosCompras.includes(correo)){
+
+            window.open('index.html','_self');
+
+        } else {
+
+            alert('No tienes permisos para ingresar al portal de Compras');
+
+        }
+
+    }
+    else if(window.perfilSeleccionado === 'proveedor'){
+
+    window.open('proveedor.html','_self');
+
+}
+
+    else if(window.perfilSeleccionado === 'planeacion'){
+
+    window.open('planeacion.html','_self');
+
+}
+    else{
+
+        alert('Seleccione un perfil');
+
+    }
+}
+window.onload = function(){
+
+    const perfilGuardado =
+        localStorage.getItem("perfilPortal");
+
+    if(perfilGuardado){
+
+        selectRole(perfilGuardado);
+
+    }
+
+}
+window.onload = function(){
+
+    const correoGuardado =
+    localStorage.getItem("correoPortal");
+
+    if(correoGuardado){
+
+        const campoCorreo =
+        document.querySelector(
+            'input[type="text"], input[type="email"]'
+        );
+
+        if(campoCorreo){
+
+            campoCorreo.value =
+            correoGuardado;
+
+        }
+
+        document.getElementById(
+            "recordarme"
+        ).checked = true;
+    }
+
+}
+  </script>
+</body>
+</html>

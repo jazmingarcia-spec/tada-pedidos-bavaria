@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portal Nacional de Abastecimiento | TaDa</title>
+
+<link rel="icon" type="image/png" href="assets/estrella-dorada.png.png">
+
+<link href="https://fontsel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+    /* ==============================================
+       TaDa Portal — Official Brand: Purple + Gold
+    =============================================== */
+    :root {
+      --purple-900: #120030;
+      --purple-800: #1E0050;
+      --purple-700: #2D006B;
+      --purple-600: #3D0090;
+      --purple-500: #5200C4;
+      --purple-400: #7B2FFF;
+      --purple-300: #A855F7;
+      --purple-100: #F3E8FF;
+      --purple-soft: rgba(90, 0, 180, 0.12);
+
+      --gold: #FFC72C;
+      --gold-dark: #E6A800;
+      --gold-light: rgba(255, 199, 44, 0.15);
+      --gold-glow: 0 0 20px rgba(255,199,44,0.4);
+
+      --bg-main: #F5F3FF;
+      --card-bg: #FFFFFF;
+      --text-main: #1A0040;
+      --text-muted: #6B5B8A;
+      --border-soft: #EDE9F6;
+      --border-purple: rgba(90,0,180,0.15);
+
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+
+      --shadow-sm: 0 1px 3px rgba(45,0,107,0.08), 0 1px 2px rgba(45,0,107,0.05);
+      --shadow-md: 0 6px 20px rgba(45,0,107,0.12);
+      --shadow-lg: 0 16px 48px rgba(45,0,107,0.18);
+      --shadow-gold: 0 8px 24px rgba(255,199,44,0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+    body {
+      background: linear-gradient(160deg, #F0EAFF 0%, #F8F5FF 40%, #FFF9E6 100%);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ==============================================
+       SIDEBAR
+    =============================================== */
+    .sidebar {
+      width: 275px;
+      background: linear-gradient(180deg, var(--purple-800) 0%, var(--purple-700) 60%, var(--purple-800) 100%);
+      color: #fff;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      box-shadow: 4px 0 32px rgba(29,0,80,0.4);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar top strip */
+    .sidebar-top {
+      background: var(--purple-900);
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid rgba(255,199,44,0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 12px;
+      flex-shrink: 0; 
+}
+    .brand-text h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .brand-text span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* Sidebar nav area */
+    .sidebar-nav {
+      padding: 16px 14px;
+      flex: 1;
+    }
+
+    .nav-section-label {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: rgba(255,199,44,0.6);
+      text-transform: uppercase;
+      padding: 12px 8px 6px;
+      display: block;
+    }
+
+    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .nav-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      color: rgba(230,215,255,0.75);
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 3px;
+      height: 60%;
+      background: var(--gold);
+      border-radius: 0 3px 3px 0;
+      transition: transform 0.2s ease;
+    }
+    .nav-btn:hover { background-color: rgba(255,255,255,0.07); color: #FFF; transform: translateX(3px); }
+    .nav-btn:hover::before { transform: translateY(-50%) scaleY(1); }
+    .nav-btn.active {
+      background: linear-gradient(90deg, rgba(255,199,44,0.18), rgba(255,199,44,0.06));
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .nav-btn.active::before { transform: translateY(-50%) scaleY(1); }
+    .nav-btn i { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+    /* Sidebar bottom */
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sidebar-footer .op-badge {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800;
+      color: var(--purple-800);
+      flex-shrink: 0;
+    }
+    .sidebar-footer span { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .sidebar-footer strong { display: block; font-size: 0.875rem; font-weight: 700; color: #FFF; }
+
+    /* Scrollbar */
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: rgba(255,199,44,0.4); border-radius: 3px; }
+
+    /* ==============================================
+       MAIN CONTENT
+    =============================================== */
+    .main-content {
+      flex: 1;
+      padding: 0;
+      overflow-y: auto;
+      max-width: 1600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+    .top-header .breadcrumb { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+    .top-header .breadcrumb strong { color: var(--purple-700); }
+    .top-header h2 { font-size: 1.3rem; font-weight: 800; color: var(--purple-800); margin-top: 2px; }
+    .top-header .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card-bg);
+      padding: 8px 18px;
+      border-radius: 30px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    .top-header .user-badge:hover { box-shadow: var(--shadow-md); }
+    .user-badge .op-icon {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: #fff;
+    }
+    .top-header .time-chip {
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-main);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+    }
+
+    /* Page inner padding */
+    .page-body { padding: 36px 40px; flex: 1; }
+
+    .view-section { display: none; }
+    .view-section.active { display: block; animation: fadeInUp 0.3s cubic-bezier(0.4,0,0.2,1); }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==============================================
+       HERO BANNER
+    =============================================== */
+    .hero-banner {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      rgba(45,0,111,0.88),
+      rgba(45,0,111,0.88)
+    ),
+    url('assets/Portada.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: 200px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(255,199,44,0.1) 0%, transparent 65%);
+      pointer-events: none;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 200px;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(120,40,255,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .hero-text { max-width: 580px; z-index: 2; }
+    .hero-text h2 { font-size: 2.4rem; font-weight: 900; margin-bottom: 10px; line-height: 1.15; letter-spacing: -0.5px; }
+    .hero-text .sub {
+      font-size: 0.78rem; font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-text .sub::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .hero-text p { color: rgba(220,200,255,0.8); font-size: 1rem; line-height: 1.65; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-img {
+      width: 280px; height: 210px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      z-index: 2;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,199,44,0.2);
+      transition: transform 0.3s ease;
+    }
+    .hero-img:hover { transform: scale(1.03) rotate(-1deg); }
+
+    /* ==============================================
+       BUTTONS
+    =============================================== */
+    .btn {
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+      text-decoration: none;
+      letter-spacing: 0.2px;
+    }
+    .btn-purple {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-500));
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(82,0,196,0.35);
+    }
+    .btn-purple:hover { background: linear-gradient(135deg, var(--purple-500), var(--purple-400)); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(82,0,196,0.4); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), #FFD65C);
+      color: var(--purple-800);
+      font-weight: 800;
+      box-shadow: var(--shadow-gold);
+    }
+    .btn-gold:hover { background: linear-gradient(135deg, #FFD65C, var(--gold)); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,199,44,0.45); }
+    .btn-outline {
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: #FFF;
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.2); border-color: var(--gold); color: var(--gold); }
+    .btn-outline-dark {
+      background: transparent;
+      border: 1.5px solid var(--border-soft);
+      color: var(--text-main);
+    }
+    .btn-outline-dark:hover { background: var(--purple-soft); border-color: var(--purple-400); color: var(--purple-700); }
+    .btn-secondary { background: var(--purple-soft); color: var(--purple-700); font-weight: 600; }
+    .btn-secondary:hover { background: rgba(90,0,180,0.18); }
+
+    /* ==============================================
+       KPI CARDS
+    =============================================== */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 36px; }
+    .kpi-card {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.25s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple-600), var(--gold));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .kpi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-purple); }
+    .kpi-card:hover::before { opacity: 1; }
+    .kpi-title { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+    .kpi-value { font-size: 2.2rem; font-weight: 900; color: var(--purple-700); margin-top: 6px; line-height: 1; }
+    .kpi-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--gold), #FFD65C);
+      color: var(--purple-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 6px 16px rgba(255,199,44,0.3);
+      flex-shrink: 0;
+    }
+
+    /* ==============================================
+       MODULE CARDS
+    =============================================== */
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .module-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .module-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(82,0,196,0.03), rgba(255,199,44,0.04));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .module-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-purple); }
+    .module-card:hover::after { opacity: 1; }
+    .module-icon {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--purple-soft), rgba(255,199,44,0.1));
+      color: var(--purple-600);
+      border: 1px solid var(--border-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      transition: all 0.25s ease;
+    }
+    .module-card:hover .module-icon {
+      background: linear-gradient(135deg, var(--gold-light), rgba(255,199,44,0.2));
+      color: var(--gold-dark);
+      border-color: rgba(255,199,44,0.4);
+    }
+    .module-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--purple-800); margin-bottom: 10px; }
+    .module-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; }
+
+    /* ==============================================
+       COMPONENTS & TABLES
+    =============================================== */
+    .card-box {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 28px;
+    }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--purple-800);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title i { color: var(--gold-dark); }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 7px; color: var(--purple-800); letter-spacing: 0.2px; }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #FAFAFA;
+      color: var(--text-main);
+    }
+    .form-control:focus {
+      border-color: var(--purple-500);
+      background: #FFF;
+      box-shadow: 0 0 0 3px rgba(82,0,196,0.1);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+    }
+    .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
+    .custom-table th {
+      background: linear-gradient(90deg, var(--purple-800), var(--purple-700));
+      color: #FFF;
+      font-weight: 700;
+      padding: 14px 16px;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+    .custom-table th:first-child { border-radius: 0; }
+    .custom-table thead tr th:first-child { border-left: 3px solid var(--gold); }
+    .custom-table td { padding: 13px 16px; border-bottom: 1px solid var(--border-soft); color: var(--text-main); vertical-align: middle; transition: background 0.15s; }
+    .custom-table tbody tr:hover td { background-color: var(--purple-soft); }
+    .custom-table input[type="number"] { width: 90px; padding: 7px 10px; border: 1.5px solid var(--border-soft); border-radius: 8px; outline: none; transition: border-color 0.2s; }
+    .custom-table input[type="number"]:focus { border-color: var(--gold); }
+
+    .badge { padding: 5px 13px; border-radius: 20px; font-weight: 700; font-size: 0.7rem; display: inline-block; letter-spacing: 0.3px; }
+    .badge-purple { background: var(--purple-soft); color: var(--purple-600); border: 1px solid var(--border-purple); }
+    .badge-gold { background: var(--gold-light); color: var(--gold-dark); border: 1px solid rgba(255,199,44,0.35); }
+    .badge-green { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+    .badge-dark { background: var(--purple-800); color: #F3E8FF; }
+
+    .actions-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR LATERAL -->
+  <aside class="sidebar">
+    <div class="sidebar-top"> 	
+   <div class="brand">
+
+    <img src="assets/logo-tada.png.jpg"
+         alt="TaDa"
+         class="brand-logo">
+
+</div>
+
+</div>
+
+    <div class="sidebar-nav">
+      <span class="nav-section-label">Menú Principal</span>
+      <ul class="nav-list">
+        <li><button class="nav-btn active" onclick="switchTab('inicio', this)"><i class="fa-solid fa-house"></i> Inicio</button></li>
+        <li><button class="nav-btn" onclick="switchTab('hielo', this)"><i class="fa-solid fa-snowflake"></i> Hielo</button></li>
+        <li><button class="nav-btn" onclick="switchTab('tat', this)"><i class="fa-solid fa-truck-ramp-box"></i> Pedidos TAT</button></li>
+        <li><button class="nav-btn" onclick="switchTab('central', this)"><i class="fa-solid fa-boxes-stacked"></i> Pedidos Centralizados</button></li>
+      </ul>
+      <span class="nav-section-label" style="margin-top:8px;">Recursos</span>
+      <ul class="nav-list">
+        <li><button class="nav-btn" onclick="switchTab('documental', this)"><i class="fa-solid fa-folder-open"></i> Biblioteca Documental</button></li>
+        <li><button class="nav-btn" onclick="switchTab('directorio', this)"><i class="fa-solid fa-address-book"></i> Directorio CTM</button></li>
+        <li><button class="nav-btn" onclick="switchTab('dashboard-view', this)"><i class="fa-solid fa-chart-pie"></i> Dashboard</button></li>
+        <li><button class="nav-btn" onclick="switchTab('admin', this)"><i class="fa-solid fa-gears"></i> Administración</button></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="op-badge"><i class="fa-solid fa-store"></i></div>
+      <div>
+        <strong>Operaciones TaDa</strong>
+        <span>Portal Activo</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ÁREA CENTRAL DE TRABAJO -->
+  <main class="main-content">
+
+    <!-- TOP HEADER -->
+    <div class="top-header">
+      <div>
+        <div class="breadcrumb">Sistema Corporativo &rsaquo; <strong>Portal Nacional</strong></div>
+        <h2>Portal Nacional de Abastecimiento</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="time-chip" id="reloj-header"><i class="fa-regular fa-clock"></i> --:--</span>
+        <div class="user-badge">
+          <div class="op-icon"><i class="fa-solid fa-store"></i></div>
+          <span style="font-size:0.875rem; font-weight:700; color:var(--purple-800);">Operaciones TaDa</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+
+    <!-- MÓDULO: INICIO / HOME -->
+    <section id="inicio" class="view-section active">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <div class="sub">• BEES • BEER • NABS</div>
+          <h2>Portal Nacional de Abastecimiento</h2>
+          <p>Centraliza solicitudes operativas, abastecimiento, documentación, proveedores y seguimiento nacional en una sola plataforma corporativa.</p>
+          <div class="hero-actions">
+            <button class="btn btn-gold" onclick="switchTab('hielo', document.querySelectorAll('.nav-btn')[1])"><i class="fa-solid fa-snowflake"></i> Solicitar Hielo</button>
+            <button class="btn btn-outline" onclick="switchTab('documental', document.querySelectorAll('.nav-btn')[4])"><i class="fa-solid fa-folder-open"></i> Biblioteca Documental</button>
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- KPIs INICIALES -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Solicitudes Registradas</div>
+            <div class="kpi-value" id="kpi-registradas">142</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-file-signature"></i></div>
+        </div>
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Pedidos en Gestión</div>
+            <div class="kpi-value" id="kpi-gestion">8</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        </div>
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">CTMs Activos</div>
+            <div class="kpi-value">22</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-store"></i></div>
+        </div>
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Documentación Vigente</div>
+            <div class="kpi-value">100%</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        </div>
+      </div>
+
+      <!-- TARJETAS GRANDES DE MÓDULOS -->
+      <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:20px; color:var(--dark-800); letter-spacing:-0.3px;">Módulos Principales</h3>
+      <div class="modules-grid">
+        <div class="module-card" onclick="switchTab('hielo', document.querySelectorAll('.nav-btn')[1])">
+          <div>
+            <div class="module-icon"><i class="fa-solid fa-snowflake"></i></div>
+            <h3>Hielo</h3>
+            <p>Generación de solicitudes consolidadas de hielo por regional para proveedores.</p>
+          </div>
+          <span class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Acceder</span>
+        </div>
+
+        <div class="module-card" onclick="switchTab('tat', document.querySelectorAll('.nav-btn')[2])">
+          <div>
+            <div class="module-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+            <h3>Pedidos TAT</h3>
+            <p>Gestión y seguimiento operativo para canal Tienda a Tienda a nivel nacional.</p>
+          </div>
+          <span class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Acceder</span>
+        </div>
+
+        <div class="module-card" onclick="switchTab('central', document.querySelectorAll('.nav-btn')[3])">
+          <div>
+            <div class="module-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <h3>Pedidos Centralizados</h3>
+            <p>Consolidado y despacho masivo de insumos y recursos operativos.</p>
+          </div>
+          <span class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Acceder</span>
+        </div>
+
+        <div class="module-card" onclick="switchTab('documental', document.querySelectorAll('.nav-btn')[4])">
+          <div>
+            <div class="module-icon"><i class="fa-solid fa-folder-open"></i></div>
+            <h3>Biblioteca Documental</h3>
+            <p>Acceso a manuales, guías, fichas técnicas y procedimientos actualizados.</p>
+          </div>
+          <span class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Acceder</span>
+        </div>
+
+        <div class="module-card" onclick="switchTab('directorio', document.querySelectorAll('.nav-btn')[5])">
+          <div>
+            <div class="module-icon"><i class="fa-solid fa-address-book"></i></div>
+            <h3>Directorio CTM</h3>
+            <p>Maestro de tiendas, administradores, contactos y ubicaciones nacionales.</p>
+          </div>
+          <span class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Acceder</span>
+        </div>
+
+        <div class="module-card" onclick="switchTab('dashboard-view', document.querySelectorAll('.nav-btn')[6])">
+          <div>
+            <div class="module-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <h3>Dashboard</h3>
+            <p>Métricas de desempeño, gráficos de abastecimiento y cobertura regional.</p>
+          </div>
+          <span class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Acceder</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO PRINCIPAL: HIELO -->
+    <section id="hielo" class="view-section">
+      <div class="card-box">
+        <div class="section-header">
+          <div class="section-title"><i class="fa-solid fa-snowflake" style="color:var(--gold)"></i> Solicitud Consolidada de Hielo</div>
+        </div>
+
+        <!-- SELECCIÓN DE REGIONAL -->
+        <div class="form-group" style="max-width: 400px;">
+          <label><i class="fa-solid fa-map-location-dot"></i> Seleccione la Regional:</label>
+          <select id="select-regional" class="form-control" onchange="cargarTiendasPorRegional()">
+            <option value="">-- Seleccionar Regional --</option>
+            <option value="Regional Centro">Regional Centro (Bogotá, Soacha)</option>
+            <option value="Regional Sur">Regional Sur (Cali)</option>
+            <option value="Regional Andes">Regional Andes (Medellín, Itagüí, Envigado, Sabaneta, Bello)</option>
+            <option value="Regional Costa">Regional Costa (Barranquilla, Soledad, Malambo, Cartagena, Santa Marta, Valledupar, Puerto Colombia)</option>
+            <option value="Regional Oriente">Regional Oriente (Bucaramanga, Floridablanca, Piedecuesta, Cúcuta, Pamplonita)</option>
+          </select>
+        </div>
+
+        <!-- BOTONES DE SELECCIÓN -->
+<div class="card-box" style="margin-bottom:20px;">
+  <h3 style="margin-bottom:10px;">Resumen de Solicitud</h3>
+
+  <p><strong>Regional:</strong> <span id="resumen-regional">No seleccionada</span></p>
+
+  <p><strong>Tiendas seleccionadas:</strong> <span id="resumen-tiendas">0</span></p>
+
+  <p><strong>Total bolsas:</strong> <span id="resumen-bolsas">0</span></p>
+
+  <p><strong>Estado:</strong> <span id="resumen-estado">Pendiente</span></p>
+</div>
+        <div style="margin-bottom: 16px; display:flex; gap:10px;">
+          <button class="btn btn-secondary" onclick="marcarTodas(true)"><i class="fa-solid fa-check-double"></i> Marcar todas</button>
+          <button class="btn btn-secondary" onclick="marcarTodas(false)"><i class="fa-solid fa-square"></i> Limpiar selección</button>
+        </div>
+
+        <!-- TABLA MAESTRA DE TIENDAS -->
+        <div class="table-container">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th style="width:40px;"><input type="checkbox" id="check-all" onchange="marcarTodas(this.checked)"></th>
+                <th>CO</th>
+                <th>Nombre Punto de Venta</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
+                <th>Barrio</th>
+                <th>Administrador</th>
+                <th>Teléfono PDV</th>
+                <th>Cantidad Solicitada</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-tiendas-hielo">
+              <tr>
+                <td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">Seleccione una regional arriba para cargar el maestro de tiendas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- OBSERVACIONES GENERALES -->
+        <div class="form-group" style="margin-top:20px;">
+          <label>Observaciones Generales del Pedido:</label>
+          <textarea id="obs-hielo" class="form-control" rows="2" placeholder="Ej: Entregar antes de las 10:00 AM. Vehículo con refrigeración requerida."></textarea>
+        </div>
+
+        <!-- BOTONES DE ACCIÓN PRINCIPALES -->
+        <div class="actions-bar">
+          <button class="btn btn-purple" onclick="generarSolicitudProveedor()"><i class="fa-solid fa-gears"></i> Generar solicitud proveedor</button>
+          <!-- btn-purple now uses dark charcoal per new theme -->
+          <button class="btn btn-gold" onclick="copiarPedidoProveedor()"><i class="fa-solid fa-copy"></i> Copiar pedido proveedor</button>
+          <button class="btn btn-outline" onclick="exportarCSVProveedor()"><i class="fa-solid fa-file-csv"></i> Exportar CSV proveedor</button>
+          <button class="btn btn-outline" onclick="abrirOutlookHielo()"><i class="fa-solid fa-envelope"></i> Abrir Outlook con correo preparado</button>
+        </div>
+      </div>
+
+      <!-- VISTA PREVIA: FORMATO PROVEEDOR -->
+      <div class="card-box" id="box-formato-proveedor" style="display:none;">
+        <div class="section-header">
+          <div class="section-title"><i class="fa-solid fa-file-invoice" style="color:var(--gold)"></i> Formato proveedor (Consolidado)</div>
+          <span class="badge badge-purple" id="badge-regional-resumen"></span>
+        </div>
+
+        <div class="table-container">
+          <table class="custom-table" id="tabla-formato-proveedor">
+            <thead>
+              <tr>
+                <th>Co</th>
+                <th>Nombre Punto de Venta</th>
+                <th>Cantidade</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
+                <th>Barrio</th>
+                <th>Administrador</th>
+                <th>Telefono PDV</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-proveedor"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO: PEDIDOS TAT -->
+    <section id="tat" class="view-section">
+      <div class="card-box">
+        <div class="section-title" style="margin-bottom:16px;"><i class="fa-solid fa-truck-ramp-box" style="color:var(--gold)"></i> Pedidos TAT (Tienda a Tienda)</div>
+        <p style="color:var(--text-muted);">Módulo de seguimiento y gestión operativa para pedidos TAT a nivel nacional.</p>
+      </div>
+    </section>
+
+    <!-- MÓDULO: PEDIDOS CENTRALIZADOS -->
+    <section id="central" class="view-section">
+      <div class="card-box">
+        <div class="section-title" style="margin-bottom:16px;"><i class="fa-solid fa-boxes-stacked" style="color:var(--gold)"></i> Pedidos Centralizados</div>
+        <p style="color:var(--text-muted);">Consolidado de despachos e insumos centralizados para operación nacional.</p>
+      </div>
+    </section>
+
+    <!-- MÓDULO: BIBLIOTECA DOCUMENTAL -->
+    <section id="documental" class="view-section">
+      <div class="card-box">
+        <div class="section-title" style="margin-bottom:20px;"><i class="fa-solid fa-folder-open" style="color:var(--gold)"></i> Biblioteca Documental de Abastecimiento</div>
+        
+        <div class="modules-grid">
+          <div class="module-card">
+            <div>
+              <span class="badge badge-purple" style="margin-bottom:12px;">PDF • Manual</span>
+              <h3>Manual de Procedimientos Hielo</h3>
+              <p>Fecha: 15/01/2026 | Guía estándar de recepción y almacenamiento.</p>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn btn-outline" style="padding:8px 12px;" onclick="alert('Abriendo vista previa...')"><i class="fa-solid fa-file-pdf"></i> Ver PDF</button>
+              <button class="btn btn-secondary" style="padding:8px 12px;" onclick="alert('Redirigiendo a SharePoint...')"><i class="fa-solid fa-share-from-square"></i> SharePoint</button>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div>
+              <span class="badge badge-purple" style="margin-bottom:12px;">PDF • Directiva</span>
+              <h3>Política de Abastecimiento TaDa</h3>
+              <p>Fecha: 01/02/2026 | Directrices oficiales para proveedores y CTMs.</p>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn btn-outline" style="padding:8px 12px;" onclick="alert('Abriendo vista previa...')"><i class="fa-solid fa-file-pdf"></i> Ver PDF</button>
+              <button class="btn btn-secondary" style="padding:8px 12px;" onclick="alert('Redirigiendo a SharePoint...')"><i class="fa-solid fa-share-from-square"></i> SharePoint</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO: DIRECTORIO CTM -->
+    <section id="directorio" class="view-section">
+      <div class="card-box">
+        <div class="section-title" style="margin-bottom:20px;"><i class="fa-solid fa-address-book" style="color:var(--gold)"></i> Directorio CTM Nacional</div>
+        
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:20px;">
+          <input type="text" id="busqueda-directorio" class="form-control" placeholder="Buscar por Nombre o CO..." onkeyup="filtrarDirectorio()">
+          <select id="filtro-regional-directorio" class="form-control" onchange="filtrarDirectorio()">
+            <option value="">Todas las Regionales</option>
+            <option value="Regional Centro">Regional Centro</option>
+            <option value="Regional Sur">Regional Sur</option>
+            <option value="Regional Andes">Regional Andes</option>
+            <option value="Regional Costa">Regional Costa</option>
+            <option value="Regional Oriente">Regional Oriente</option>
+          </select>
+        </div>
+
+        <div class="table-container">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>CO</th>
+                <th>Nombre Punto de Venta</th>
+                <th>Regional</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
+                <th>Barrio</th>
+                <th>Administrador</th>
+                <th>Teléfono</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-directorio"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO: DASHBOARD -->
+    <section id="dashboard-view" class="view-section">
+      <div class="card-box">
+        <div class="section-title" style="margin-bottom:16px;"><i class="fa-solid fa-chart-pie" style="color:var(--gold)"></i> Dashboard de Operaciones</div>
+        <p style="color:var(--text-muted);">Métricas consolidadas de abastecimiento nacional e indicadores de nivel de servicio.</p>
+      </div>
+    </section>
+
+    <!-- MÓDULO: ADMINISTRACIÓN -->
+    <section id="admin" class="view-section">
+      <div class="card-box">
+        <div class="section-title" style="margin-bottom:20px;"><i class="fa-solid fa-gears" style="color:var(--gold)"></i> Estado de Servicios e Integraciones</div>
+        
+        <div class="table-container">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Servicio / Integración</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Detalles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>SharePoint Online</strong></td>
+                <td>Conector de Datos</td>
+                <td><span class="badge badge-purple">Pendiente</span></td>
+                <td>Esperando autenticación directa del portal web.</td>
+              </tr>
+              <tr>
+                <td><strong>Power Automate</strong></td>
+                <td>Flujos HTTP</td>
+                <td><span class="badge badge-purple">Pendiente</span></td>
+                <td>Integración lista para recibir webhooks.</td>
+              </tr>
+              <tr>
+                <td><strong>Microsoft Outlook</strong></td>
+                <td>Protocolo Mailto</td>
+                <td><span class="badge badge-green">Disponible</span></td>
+                <td>Generación asistida de correo cliente.</td>
+              </tr>
+              <tr>
+                <td><strong>Exportador Excel/CSV</strong></td>
+                <td>Cliente JS</td>
+                <td><span class="badge badge-green">Disponible</span></td>
+                <td>Exportación UTF-8 BOM habilitada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ==========================================
+    // MAESTRO DE TIENDAS
+    // ==========================================
+    const MAESTRO_TIENDAS = [
+  
+{
+  co: "191",
+  nombre: "AB INBEV I LOVE BEER",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 53A 127 35 P 7",
+  barrio: "NIZA",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+
+{
+  co: "223",
+  nombre: "TIENDAS TADA RESTREPO",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 24 15 30 SUR",
+  barrio: "ANTONIO NARIÑO-RESTREPO",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+
+{
+  co: "273",
+  nombre: "TIENDAS TADA CEDRITOS",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV CR 19 150 36",
+  barrio: "CEDRITOS",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+
+{
+  co: "346",
+  nombre: "TIENDAS TADA SOACHA",
+  regional: "Regional Centro",
+  ciudad: "SOACHA",
+  direccion: "CR 8 13 38",
+  barrio: "SOACHA-BOCHICA",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "262",
+  nombre: "TIENDAS TADA CALLE 75",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CRA 20 B 75 12 LOCAL 105",
+  barrio: "SAN FELIPE",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "268",
+  nombre: "TIENDAS TADA TABORA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 80 73 23",
+  barrio: "ENGATIVA-TABORA",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "269",
+  nombre: "TIENDAS TADA LA ESPAÑOLA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 80 83 62",
+  barrio: "ENGATIVA-ANDALUCIA",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "272",
+  nombre: "TIENDAS TADA CASTILLA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 78 08A 15",
+  barrio: "KENNEDY-CASTILLA",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "297",
+  nombre: "TIENDAS EXPRESS",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "Zona Logistik Montevideo Cll 18 69F 25",
+  barrio: "MONTEVIDEO",
+  admin: "XIMENA ACOSTA",
+  telefono: "3005172222"
+},
+{
+  co: "320",
+  nombre: "TIENDAS TADA LAS FLORES",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 104 139 30 LC 01",
+  barrio: "LAS FLORES",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "321",
+  nombre: "TIENDAS TADA CRA 91",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 91 90 75",
+  barrio: "ENGATIVA-QUIRIGUA",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "322",
+  nombre: "TIENDAS TADA NORMANDIA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CALLE 53 70 74",
+  barrio: "ENGATIVA-NORMANDIA",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "324",
+  nombre: "TIENDAS TADA ALQUERIA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 41 SUR 52 50",
+  barrio: "PUENTE ARANDA-ALQUERIA",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "325",
+  nombre: "TIENDAS TADA CLARET",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CARRERA 27 42 47",
+  barrio: "TUNJUELITO-CLARET",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "326",
+  nombre: "TIENDAS TADA SAN BERNARDINO",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 87C 71B SUR 06",
+  barrio: "BOSA-SANBERNARDINO",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "327",
+  nombre: "TIENDAS TADA TORREMOLINOS",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV CL 26 SUR 70B 54",
+  barrio: "KENNEDY-TORREMOLINOS",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "329",
+  nombre: "TIENDAS TADA SAN CRISTOBAL",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 163A 08H 54",
+  barrio: "SAN CRISTOBAL NORTE",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "330",
+  nombre: "TIENDAS TADA ROMA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 57A SUR 80B 31",
+  barrio: "KENNEDY-ROMA",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "331",
+  nombre: "TIENDAS TADA LA VICTORIA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 37C SUR 03B 98",
+  barrio: "SAN CRISTOBAL-LA VICTORIA",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "332",
+  nombre: "TIENDAS TADA BELLAVISTA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV CR 70 68A 04",
+  barrio: "ENGATIVA-BELLAVISTA OCCIDENTAL",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "333",
+  nombre: "TIENDAS TADA SAN FERNANDO",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV CL 68 55 30",
+  barrio: "BARRIOS UNIDOS-SAN FERNANDO",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "334",
+  nombre: "TIENDAS TADA QUINTA PAREDES",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV CL 24 40 88 LC 1",
+  barrio: "TEUSAQUILLO-QUINTA PARDES",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "335",
+  nombre: "TIENDAS TADA SANTA BARBARA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV CL 116 16 24",
+  barrio: "SANTA BARBARA",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "336",
+  nombre: "TIENDAS TADA MODELIA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV ESPERANZA 74A 26",
+  barrio: "FONTIBON-MODELIA",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "337",
+  nombre: "TIENDAS TADA MARTIRES",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 9 26 56",
+  barrio: "MARTIRES-RICAURTE",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+{
+  co: "338",
+  nombre: "TIENDAS TADA PONTEVEDRA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 116 71C 12",
+  barrio: "SUBA-PONTEVEDRA",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "339",
+  nombre: "TIENDAS TADA PRADERA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "AV DE LAS AMERICAS 64A 39",
+  barrio: "PUENTE ARANDA-LA PRADERA",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "341",
+  nombre: "TIENDAS TADA PRADO",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 129 54 32",
+  barrio: "PRADO",
+  admin: "JHONATAN LAGO",
+  telefono: "3157927874"
+},
+{
+  co: "342",
+  nombre: "TIENDAS TADA GALERIAS",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 21 52A 28",
+  barrio: "GALERIAS",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "343",
+  nombre: "TIENDAS TADA LA LAGUNA",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CL 16F 103B 09",
+  barrio: "FONTIBON-EL CARMEN",
+  admin: "DIEGO ARDILA",
+  telefono: "3228036570"
+},
+{
+  co: "344",
+  nombre: "TIENDAS TADA PERDOMO",
+  regional: "Regional Centro",
+  ciudad: "BOGOTÁ",
+  direccion: "CR 72 65 SUR 35",
+  barrio: "CIUDAD BOLIVAR-PERDOMO",
+  admin: "JULIAN LOPEZ",
+  telefono: "3053966429"
+},
+
+{
+  co: "351",
+  nombre: "TIENDAS TADA ITAGUI CENTRO",
+  regional: "Regional Andes",
+  ciudad: "ITAGUI",
+  direccion: "CR 49 47 26",
+  barrio: "ITAGUI CENTRO",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "352",
+  nombre: "TIENDAS TADA SANTA MARIA - ITAGUI",
+  regional: "Regional Andes",
+  ciudad: "ITAGUI",
+  direccion: "CR 52D 70 12",
+  barrio: "SANTA MARIA",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "353",
+  nombre: "TIENDAS TADA ENVIGADO",
+  regional: "Regional Andes",
+  ciudad: "ENVIGADO",
+  direccion: "CL 37 SUR 41 17",
+  barrio: "CENTRO",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "354",
+  nombre: "TIENDAS TADA SABANETA",
+  regional: "Regional Andes",
+  ciudad: "SABANETA",
+  direccion: "CL 68 SUR 46 65",
+  barrio: "SABANETA",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "355",
+  nombre: "TIENDAS TADA BELEN-MEDELLIN",
+  regional: "Regional Andes",
+  ciudad: "MEDELLIN",
+  direccion: "CL 30A 69 108",
+  barrio: "BELEN",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "356",
+  nombre: "TIENDAS TADA FLORESTA – MEDELLIN",
+  regional: "Regional Andes",
+  ciudad: "MEDELLIN",
+  direccion: "CL 48 79 46",
+  barrio: "FLORESTA",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "357",
+  nombre: "TIENDAS TADA GUAYABAL - MEDELLIN",
+  regional: "Regional Andes",
+  ciudad: "MEDELLIN",
+  direccion: "CR 52 8 SUR 61",
+  barrio: "LA COLINA",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "358",
+  nombre: "TIENDAS TADA POBLADO-MEDELLIN",
+  regional: "Regional Andes",
+  ciudad: "MEDELLIN",
+  direccion: "CR 41 9 64",
+  barrio: "POBLADO",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "360",
+  nombre: "TIENDAS TADA NIQUIA – BELLO",
+  regional: "Regional Andes",
+  ciudad: "BELLO",
+  direccion: "AV 42B 51 47",
+  barrio: "NIQUIA",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "361",
+  nombre: "TIENDAS TADA BELLO 2",
+  regional: "Regional Andes",
+  ciudad: "BELLO",
+  direccion: "CR 52 51 27",
+  barrio: "BELLO",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "362",
+  nombre: "TIENDAS TADA BUENOS AIRES - MEDELLIN",
+  regional: "Regional Andes",
+  ciudad: "MEDELLIN",
+  direccion: "CL 49 36 20",
+  barrio: "BUENOS AIRES",
+  admin: "ERIKA RICO",
+  telefono: "3202103911"
+},
+{
+  co: "478",
+  nombre: "LOGISTICA NO BEER MEDELLIN",
+  regional: "Regional Andes",
+  ciudad: "MEDELLIN",
+  direccion: "Cra. 41 #32-30 a, Itagui, Antioquia",
+  barrio: "ITAGUI ZONA INDUSTRIAL 2",
+  admin: "XIMENA ACOSTA",
+  telefono: "3005172222"
+},
+{
+  co: "365",
+  nombre: "TIENDAS TADA CALLE 96 - B/QUILLA",
+  regional: "Regional Costa",
+  ciudad: "BARRANQUILLA",
+  direccion: "CL 96 46 73",
+  barrio: "EL POBLADO",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "367",
+  nombre: "TIENDAS TADA MALAMBO",
+  regional: "Regional Costa",
+  ciudad: "MALAMBO",
+  direccion: "CL 10 8 35",
+  barrio: "MALAMBO",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "369",
+  nombre: "TIENDAS TADA INMACULADAS - SOLEDAD",
+  regional: "Regional Costa",
+  ciudad: "SOLEDAD",
+  direccion: "CL 54 13C 53",
+  barrio: "LA INMACULADA",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "370",
+  nombre: "TIENDAS TADA PUERTO COLOMBIA",
+  regional: "Regional Costa",
+  ciudad: "PUERTO COLOMBIA",
+  direccion: "CL 2 5 58",
+  barrio: "PUERTO COLOMIA",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "371",
+  nombre: "TIENDAS TADA TABOR – B/QUILLA",
+  regional: "Regional Costa",
+  ciudad: "BARRANQUILLA",
+  direccion: "CL 76 43B 48",
+  barrio: "EL GRANADILLO",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "372",
+  nombre: "TIENDAS TADA EL PARQUE – SOLEDAD",
+  regional: "Regional Costa",
+  ciudad: "SOLEDAD",
+  direccion: "CR 42 44 51",
+  barrio: "URB. EL PARQUE",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "373",
+  nombre: "TIENDAS TADA HIPODROMO – SOLEDAD",
+  regional: "Regional Costa",
+  ciudad: "SOLEDAD",
+  direccion: "CR 30 24 20 LC 1",
+  barrio: "HIPODROMO",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "374",
+  nombre: "TIENDAS TADA EL CARMEN – B/QUILLA",
+  regional: "Regional Costa",
+  ciudad: "BARRANQUILLA",
+  direccion: "CL 48 21 07",
+  barrio: "EL CARMEN",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "378",
+  nombre: "TIENDAS TADA CABRERO - CARTAGENA",
+  regional: "Regional Costa",
+  ciudad: "CARTAGENA",
+  direccion: "CR 2 43A 71",
+  barrio: "CABRERO",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "379",
+  nombre: "TIENDAS TADA TACARIGUA - CARTAGENA",
+  regional: "Regional Costa",
+  ciudad: "CARTAGENA",
+  direccion: "TV 54 MZ 1A LT 11",
+  barrio: "TACARIGUA",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "383",
+  nombre: "TIENDAS TADA RODADERO - STA MARTA",
+  regional: "Regional Costa",
+  ciudad: "SANTA MARTA",
+  direccion: "CR 4 21 220 LC 08 09",
+  barrio: "RODADERO",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "384",
+  nombre: "TIENDAS TADA LIBERTADOR - STA MARTA",
+  regional: "Regional Costa",
+  ciudad: "SANTA MARTA",
+  direccion: "TV 14 31 08",
+  barrio: "LIBERTADOR",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "388",
+  nombre: "TIENDAS TADA SALGUERO - VALLEDUPAR",
+  regional: "Regional Costa",
+  ciudad: "VALLEDUPAR",
+  direccion: "CR 7A 25 138",
+  barrio: "CORTIJOS",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "389",
+  nombre: "TIENDA TADA CORTIJOS VALLEDUPAR",
+  regional: "Regional Costa",
+  ciudad: "VALLEDUPAR",
+  direccion: "AV SIMON BOLIVAR CR 19 07D 25",
+  barrio: "BARRIO DOCE DE OCTUBRE",
+  admin: "YESSENIA MESA-LUIS PRETELT",
+  telefono: "3160253229"
+},
+{
+  co: "472",
+  nombre: "TIENDAS TADA TORICES",
+  regional: "Regional Costa",
+  ciudad: "CARTAGENA",
+  direccion: "Calle 37 14 51 torices",
+  barrio: "TORICES",
+  admin: "DESHIRET CHUSCANO",
+  telefono: "3176574763"
+},
+{
+  co: "474",
+  nombre: "LOGISTICA NO BEER BARRANQUILLA",
+  regional: "Regional Costa",
+  ciudad: "BARRANQUILLA",
+  direccion: "Km 2 Via la Cordialidad Poligono Industrial GALPARK",
+  barrio: "POLIGONO INDUSTRIAL GALAPARK",
+  admin: "XIMENA ACOSTA",
+  telefono: "3005172222"
+},
+{
+  co: "392",
+  nombre: "TIENDAS TADA PROVENZA -BUCARAMANGA",
+  regional: "Regional Oriente",
+  ciudad: "BUCARAMANGA",
+  direccion: "CL 105 26A 93",
+  barrio: "PROVENZA",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "393",
+  nombre: "TIENDAS TADA AURORA - BUCARAMANGA",
+  regional: "Regional Oriente",
+  ciudad: "BUCARAMANGA",
+  direccion: "CR 33A 31A 20",
+  barrio: "GUARIN",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "395",
+  nombre: "TIENDAS TADA LAGOS UNO - FLORIDABLANCA",
+  regional: "Regional Oriente",
+  ciudad: "FLORIDABLANCA",
+  direccion: "CR 29 31 68",
+  barrio: "LAGOS UNO",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "396",
+  nombre: "TIENDAS TADA EDS PIEDECUESTA",
+  regional: "Regional Oriente",
+  ciudad: "PIEDECUESTA",
+  direccion: "KM 14 VIA PIE DE CUESTA",
+  barrio: "PIEDECUESTA",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "397",
+  nombre: "TIENDAS TADA ALTOS DE PAMPLONITA -CUCUTA",
+  regional: "Regional Oriente",
+  ciudad: "PAMPLONITA",
+  direccion: "CL 6 9 65 LC 2",
+  barrio: "ALTOS DE PAMPLONITA",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "398",
+  nombre: "TIENDAS TADA ATALAYA - CUCUTA",
+  regional: "Regional Oriente",
+  ciudad: "CUCUTA",
+  direccion: "MZ I5 LT 19",
+  barrio: "URBANIZACION JUAN ATALAYA",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "399",
+  nombre: "TIENDAS TADA MALECON - CUCUTA",
+  regional: "Regional Oriente",
+  ciudad: "CUCUTA",
+  direccion: "CL 15 3E 145",
+  barrio: "LOS CAOBOS",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "400",
+  nombre: "TIENDAS TADA GUAIMARAL-CUCUTA",
+  regional: "Regional Oriente",
+  ciudad: "CUCUTA",
+  direccion: "AV 11E 14N 62 LC 01 02 03",
+  barrio: "GUAIMARAL",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "442",
+  nombre: "TIENDAS TADA CAMPOHERMOSO",
+  regional: "Regional Oriente",
+  ciudad: "BUCARAMANGA",
+  direccion: "CL 45 01 08",
+  barrio: "CAMPO HERMOSO",
+  admin: "DANILO DIAZ",
+  telefono: "3160253226"
+},
+{
+  co: "475",
+  nombre: "LOGISTICA NO BEER BUCARAMANGA",
+  regional: "Regional Oriente",
+  ciudad: "BUCARAMANGA",
+  direccion: "Km 7 via Palenque-café, Parque Industrial II de Bucaramanga",
+  barrio: "KM 3 VIA CAFÉ MADRID",
+  admin: "XIMENA ACOSTA",
+  telefono: "3005172222"
+},
+{
+  co: "477",
+  nombre: "LOGISTICA NO BEER CUCUTA",
+  regional: "Regional Oriente",
+  ciudad: "CUCUTA",
+  direccion: "Anillo Vial Oriental Centro Empresarial Bocono",
+  barrio: "SECTOR BOCONO",
+  admin: "XIMENA ACOSTA",
+  telefono: "3005172222"
+},
+{
+  co: "401",
+  nombre: "TIENDAS TADA FLORESTA - CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "CR 15 33E 57 LC 1 2",
+  barrio: "LA FLORESTA",
+  admin: "LUISA OROZCO-YEFFERSON OROZCO",
+  telefono: "3197152318"
+},
+{
+  co: "402",
+  nombre: "TIENDAS TADA CRA 66 LIMONAR - CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "CR 66 9 54",
+  barrio: "EL LIMONAR",
+  admin: "LUISA OROZCO-YEFFERSON OROZCO",
+  telefono: "3197152318"
+},
+{
+  co: "404",
+  nombre: "TIENDAS TADA LA FLORA- CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "AV 6 NTE 45 60",
+  barrio: "LA FLORA",
+  admin: "LUISA OROZCO-YEFFERSON OROZCO",
+  telefono: "3197152318"
+},
+{
+  co: "405",
+  nombre: "TIENDAS TADA OLIMPICO - CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "CR 39 10A 03",
+  barrio: "OLIMPICO",
+  admin: "LUISA OROZCO-YEFFERSON OROZCO",
+  telefono: "3197152318"
+},
+{
+  co: "407",
+  nombre: "TIENDAS TADA CIUDAD JARDIN - CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "CL 13 101 59",
+  barrio: "CIUDAD JARDIN",
+  admin: "LUISA OROZCO-YEFFERSON OROZCO",
+  telefono: "3197152318"
+},
+{
+  co: "408",
+  nombre: "TIENDAS TADA CEIBAS - CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "CL 70 NORTE 7R 26",
+  barrio: "CEIBAS",
+  admin: "LUISA OROZCO-YEFFERSON OROZCO",
+  telefono: "3197152318"
+},
+{
+  co: "476",
+  nombre: "LOGISTICA NO BEER CALI",
+  regional: "Regional Sur",
+  ciudad: "CALI",
+  direccion: "CR 8 29 34 ZONA INDUSTRIAL LOS MANGOS",
+  barrio: "LOS MANGOS",
+  admin: "XIMENA ACOSTA",
+  telefono: "3005172222"
+}
+
+];
+
+    let solicitudConsolidadaGlobal = [];
+
+    // NAVEGACIÓN
+    function switchTab(sectionId, element) {
+      document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      if(element) element.classList.add('active');
+
+      if(sectionId === 'directorio') {
+        cargarDirectorioInicial();
+      }
+    }
+
+    // CARGAR TIENDAS EN HIELO
+   function cargarTiendasPorRegional() {
+
+  const regional = document.getElementById('select-regional').value;
+  const tbody = document.getElementById('tbody-tiendas-hielo');
+
+  tbody.innerHTML = '';
+
+  if (!regional) {
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="9" style="text-align:center; padding:30px;">
+          Seleccione una regional arriba para cargar el maestro de tiendas.
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  const tiendas = MAESTRO_TIENDAS.filter(
+    t => t.regional === regional
+  );
+
+  tiendas.forEach((tienda) => {
+
+    const row = `
+      <tr>
+        <td>
+          <input type="checkbox"
+                 class="check-tienda"
+                 data-co="${tienda.co}">
+        </td>
+
+        <td><strong>${tienda.co}</strong></td>
+        <td>${tienda.nombre}</td>
+        <td>${tienda.ciudad}</td>
+        <td>${tienda.direccion}</td>
+        <td>${tienda.barrio}</td>
+        <td>${tienda.admin}</td>
+        <td>${tienda.telefono}</td>
+
+        <td>
+          <input type="number"
+                 min="0"
+                 value="0"
+                 class="cant-tienda"
+                 data-co="${tienda.co}">
+        </td>
+      </tr>
+    `;
+
+    tbody.innerHTML += row;
+
+  });
+
+}
+
+    function marcarTodas(estado) {
+
+      document.querySelectorAll('.check-tienda').forEach(chk => chk.checked = estado);
+
+      const chkAll = document.getElementById('check-all');
+
+      if(chkAll) chkAll.checked = estado;
+
+
+}
+
+function actualizarResumen() {
+
+  const regional =
+    document.getElementById("select-regional").value || "No seleccionada";
+
+  const checks =
+    document.querySelectorAll(".check-tienda:checked");
+
+  let totalBolsas = 0;
+
+  checks.forEach(chk => {
+    const co = chk.dataset.co;
+
+    const input = document.querySelector(
+      `.cant-tienda[data-co="${co}"]`
+    );
+
+    if (input) {
+      totalBolsas += parseInt(input.value) || 0;
+    }
+});
+
+  document.getElementById("resumen-regional").textContent = regional;
+  document.getElementById("resumen-tiendas").textContent = checks.length;
+  document.getElementById("resumen-bolsas").textContent = totalBolsas;
+
+  document.getElementById("resumen-estado").textContent =
+    totalBolsas > 0 ? "Listo para generar" : "Pendiente";
+
+    }
+
+    // GENERAR SOLICITUD PROVEEDOR
+    function generarSolicitudProveedor() {
+      const regional = document.getElementById('select-regional').value;
+      if (!regional) {
+        alert("Por favor seleccione una regional primero.");
+        return;
+      }
+
+      const checkboxes = document.querySelectorAll('.check-tienda:checked');
+      if (checkboxes.length === 0) {
+        alert("Seleccione al menos una tienda para generar la solicitud.");
+        return;
+      }
+
+      solicitudConsolidadaGlobal = [];
+      const tbodyProv = document.getElementById('tbody-proveedor');
+      tbodyProv.innerHTML = '';
+
+      checkboxes.forEach(chk => {
+        const co = chk.getAttribute('data-co');
+        const inputCant = document.querySelector(`.cant-tienda[data-co="${co}"]`);
+        const cantidad = inputCant ? parseInt(inputCant.value) || 0 : 0;
+
+        if (cantidad > 0) {
+          const tienda = MAESTRO_TIENDAS.find(t => t.co === co);
+          if (tienda) {
+            solicitudConsolidadaGlobal.push({
+              co: tienda.co,
+              nombre: tienda.nombre,
+              cantidade: cantidad,
+              ciudad: tienda.ciudad,
+              direccion: tienda.direccion,
+              barrio: tienda.barrio,
+              admin: tienda.admin,
+              telefono: tienda.telefono
+            });
+          }
+        }
+      });
+
+      if (solicitudConsolidadaGlobal.length === 0) {
+        alert("Ingresa una cantidad mayor a 0 para las tiendas seleccionadas.");
+        return;
+      }
+
+      solicitudConsolidadaGlobal.forEach(item => {
+        const row = `
+          <tr>
+            <td><strong>${item.co}</strong></td>
+            <td>${item.nombre}</td>
+            <td><span class="badge badge-purple">${item.cantidade}</span></td>
+            <td>${item.ciudad}</td>
+            <td>${item.direccion}</td>
+            <td>${item.barrio}</td>
+            <td>${item.admin}</td>
+            <td>${item.telefono}</td>
+          </tr>
+        `;
+        tbodyProv.innerHTML += row;
+      });
+
+      document.getElementById('badge-regional-resumen').textContent = `${regional} • ${solicitudConsolidadaGlobal.length} Ítems`;
+      document.getElementById('box-formato-proveedor').style.display = 'block';
+      document.getElementById('box-formato-proveedor').scrollIntoView({ behavior: 'smooth' });
+
+      // Actualizar KPI
+      const kpiReg = document.getElementById('kpi-registradas');
+      if(kpiReg) kpiReg.textContent = parseInt(kpiReg.textContent) + 1;
+    }
+
+    // COPIAR PEDIDO PROVEEDOR
+    function copiarPedidoProveedor() {
+      if (solicitudConsolidadaGlobal.length === 0) {
+        generarSolicitudProveedor();
+        if (solicitudConsolidadaGlobal.length === 0) return;
+      }
+
+      let texto = "FORMATO PROVEEDOR - SOLICITUD DE HIELO TADA\n";
+      texto += "Co\tNombre Punto de Venta\tCantidade\tCiudad\tDirección\tBarrio\tAdministrador\tTelefono PDV\n";
+
+      solicitudConsolidadaGlobal.forEach(item => {
+        texto += `${item.co}\t${item.nombre}\t${item.cantidade}\t${item.ciudad}\t${item.direccion}\t${item.barrio}\t${item.admin}\t${item.telefono}\n`;
+      });
+
+      navigator.clipboard.writeText(texto).then(() => {
+        alert("¡Pedido copiado al portapapeles en formato de tabla!");
+      }).catch(() => {
+        alert("No se pudo copiar automáticamente. Por favor seleccione la tabla manualmente.");
+      });
+    }
+
+    // EXPORTAR CSV PROVEEDOR (UTF-8 BOM)
+    function exportarCSVProveedor() {
+      if (solicitudConsolidadaGlobal.length === 0) {
+        generarSolicitudProveedor();
+        if (solicitudConsolidadaGlobal.length === 0) return;
+      }
+
+      const regional = document.getElementById('select-regional').value || "Nacional";
+      const fecha = new Date().toISOString().slice(0,10);
+
+      let csv = "Co;Nombre Punto de Venta;Cantidade;Ciudad;Dirección;Barrio;Administrador;Telefono PDV\n";
+
+      solicitudConsolidadaGlobal.forEach(item => {
+        csv += `"${item.co}";"${item.nombre}";${item.cantidade};"${item.ciudad}";"${item.direccion}";"${item.barrio}";"${item.admin}";"${item.telefono}"\n`;
+      });
+
+      const bom = "\uFEFF";
+      const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      
+      const fileName = `solicitud_hielo_tada_${regional.toLowerCase().replace(/\s+/g, '_')}_${fecha}.csv`;
+      
+      link.setAttribute("href", url);
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // ABRIR OUTLOOK
+    function abrirOutlookHielo() {
+      if (solicitudConsolidadaGlobal.length === 0) {
+        generarSolicitudProveedor();
+        if (solicitudConsolidadaGlobal.length === 0) return;
+      }
+
+      const regional = document.getElementById('select-regional').value || "Nacional";
+      const fecha = new Date().toLocaleDateString();
+      const correoProveedor = "proveedor.hielo@tada.com.co";
+      const observaciones = document.getElementById('obs-hielo').value || "Sin observaciones adicionales.";
+
+      const asunto = encodeURIComponent(`Solicitud de hielo TaDa - [${regional}] - [${fecha}]`);
+      
+      let cuerpoTexto = `Apreciado Proveedor,\n\nAdjuntamos la solicitud consolidada de hielo para la ${regional} con fecha ${fecha}.\n\n`;
+      cuerpoTexto += `OBSERVACIONES: ${observaciones}\n\n`;
+      cuerpoTexto += `RESUMEN DEL PEDIDO:\n`;
+      cuerpoTexto += `Co | Nombre | Cantidade | Ciudad | Dirección | Barrio | Admin | Teléfono\n`;
+      cuerpoTexto += `------------------------------------------------------------------------\n`;
+
+      solicitudConsolidadaGlobal.forEach(item => {
+        cuerpoTexto += `${item.co} | ${item.nombre} | ${item.cantidade} | ${item.ciudad} | ${item.direccion} | ${item.barrio} | ${item.admin} | ${item.telefono}\n`;
+      });
+
+      cuerpoTexto += `\nQuedamos atentos a la confirmación del despacho.\n\nPortal Nacional de Abastecimiento TaDa`;
+
+      const mailtoUrl = `mailto:${correoProveedor}?subject=${asunto}&body=${encodeURIComponent(cuerpoTexto)}`;
+
+      try {
+        window.location.href = mailtoUrl;
+      } catch (e) {
+        alert("No se pudo abrir automáticamente el cliente de Outlook. Por favor utilice la opción 'Copiar pedido proveedor' y péguelo directamente en su correo.");
+      }
+    }
+
+    // DIRECTORIO CTM
+    function cargarDirectorioInicial() {
+      const tbody = document.getElementById('tbody-directorio');
+      tbody.innerHTML = '';
+      MAESTRO_TIENDAS.forEach(tienda => {
+        const row = `
+          <tr>
+            <td><strong>${tienda.co}</strong></td>
+            <td>${tienda.nombre}</td>
+            <td><span class="badge badge-purple">${tienda.regional}</span></td>
+            <td>${tienda.ciudad}</td>
+            <td>${tienda.direccion}</td>
+            <td>${tienda.barrio}</td>
+            <td>${tienda.admin}</td>
+            <td>${tienda.telefono}</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function filtrarDirectorio() {
+      const query = document.getElementById('busqueda-directorio').value.toLowerCase();
+      const regionalFiltro = document.getElementById('filtro-regional-directorio').value;
+      const tbody = document.getElementById('tbody-directorio');
+      tbody.innerHTML = '';
+
+      const filtrados = MAESTRO_TIENDAS.filter(t => {
+        const coincideQuery = t.nombre.toLowerCase().includes(query) || t.co.toLowerCase().includes(query);
+        const coincideReg = regionalFiltro === "" || t.regional === regionalFiltro;
+        return coincideQuery && coincideReg;
+      });
+
+      filtrados.forEach(tienda => {
+        const row = `
+          <tr>
+            <td><strong>${tienda.co}</strong></td>
+            <td>${tienda.nombre}</td>
+            <td><span class="badge badge-purple">${tienda.regional}</span></td>
+            <td>${tienda.ciudad}</td>
+            <td>${tienda.direccion}</td>
+            <td>${tienda.barrio}</td>
+            <td>${tienda.admin}</td>
+            <td>${tienda.telefono}</td>
+          </tr>
+        `;	
+        tbody.innerHTML += row;
+      });
+    }
+    
+    // Reloj en tiempo real
+    function actualizarReloj() {
+      const ahora = new Date();
+      const horas = String(ahora.getHours()).padStart(2,'0');
+      const mins = String(ahora.getMinutes()).padStart(2,'0');
+      const secs = String(ahora.getSeconds()).padStart(2,'0');
+      const el = document.getElementById('reloj-header');
+      if (el) el.innerHTML = `<i class="fa-regular fa-clock"></i> ${horas}:${mins}:${secs}`;
+    }
+    actualizarReloj();
+    setInterval(actualizarReloj, 1000);
+  </script>
+</body>
+</html>
